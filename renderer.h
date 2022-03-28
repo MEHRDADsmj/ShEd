@@ -8,7 +8,7 @@ class Renderer : public QOpenGLWidget, public QOpenGLFunctions_3_3_Core
 {
     Q_OBJECT
 public:
-    explicit Renderer(QOpenGLWidget *parent = nullptr);
+    explicit Renderer(QWidget *parent = nullptr);
 
     void initializeGL() override;
     void resizeGL(int w, int h) override;
