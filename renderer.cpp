@@ -14,7 +14,7 @@ void Renderer::initializeGL()
 
 void Renderer::resizeGL(int w, int h)
 {
-
+    glViewport(0.0f, 0.0f, w, h);
 }
 
 void Renderer::paintGL()
