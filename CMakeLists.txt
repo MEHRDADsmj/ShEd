@@ -13,6 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS OpenGL REQUIRED)
+find_package(Qt6 COMPONENTS OpenGLWidgets REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -47,6 +49,8 @@ else()
 endif()
 
 target_link_libraries(ShEd PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(ShEd PRIVATE Qt6::OpenGL)
+target_link_libraries(ShEd PRIVATE Qt6::OpenGLWidgets)
 
 set_target_properties(ShEd PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
