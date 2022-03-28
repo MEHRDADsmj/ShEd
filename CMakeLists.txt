@@ -23,6 +23,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         renderer.h
         renderer.cpp
+        TextManager.h
+        TextManager.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
