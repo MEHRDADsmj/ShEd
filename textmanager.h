@@ -8,12 +8,20 @@ class QTextEdit;
 class TextManager : public QObject
 {
     Q_OBJECT
-public:
+private:
     explicit TextManager(QObject *parent = nullptr, QTextEdit* VertexEdit = nullptr,
                          QTextEdit* FragmentEdit = nullptr);
+public:
+    virtual ~TextManager();
+    void GetTextFromEditors(std::string& VertexSrc, std::string& FragSrc);
 
     QTextEdit* VertexEdit;
     QTextEdit* FragmentEdit;
+
+    static TextManager* GetTextManager();
+
+private:
+    static TextManager* Manager;
 
 signals:
 

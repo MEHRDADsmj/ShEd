@@ -7,8 +7,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    TextManager textManager;
-    w.GetEditors(textManager.VertexEdit, textManager.FragmentEdit);
+    TextManager* tm = TextManager::GetTextManager();
+    w.GetEditors(tm->VertexEdit, tm->FragmentEdit);
     w.show();
     return a.exec();
 }

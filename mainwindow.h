@@ -17,7 +17,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void GetEditors(QTextEdit* Vertex, QTextEdit* Fragment);
+    void GetEditors(QTextEdit*& Vertex, QTextEdit*& Fragment);
+
+private slots:
+    void on_btnCompile_clicked();
 
 private:
     Ui::MainWindow *ui;
