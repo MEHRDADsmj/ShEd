@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include "textmanager.h"
+#include <QDebug>
 
 Renderer::Renderer(QWidget *parent)
     : QOpenGLWidget{parent}
@@ -10,7 +11,7 @@ Renderer::Renderer(QWidget *parent)
 void Renderer::initializeGL()
 {
     initializeOpenGLFunctions();
-    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     Program = glCreateProgram();
 
     // Vertex array object
@@ -44,6 +45,7 @@ void Renderer::initializeGL()
     glGenBuffers(1, &IBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    CompileShaders();
 }
 
 void Renderer::resizeGL(int w, int h)
@@ -77,11 +79,32 @@ void Renderer::CompileShaders()
     glShaderSource(VertexShader, 1, &Src, nullptr);
     glCompileShader(VertexShader);
 
+    int success;
+    glGetShaderiv(VertexShader, GL_COMPILE_STATUS, &success);
+
+    if(!success)
+    {
+        char infoLog[512];
+        glGetShaderInfoLog(Program, 512, NULL, infoLog);
+        qInfo() << infoLog;
+    }
+
     Src = FragSrc.c_str();
     glShaderSource(FragmentShader, 1, &Src, nullptr);
     glCompileShader(FragmentShader);
+    glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, &success);
+
+    if(!success)
+    {
+        char infoLog[512];
+        glGetShaderInfoLog(Program, 512, NULL, infoLog);
+        qInfo() << infoLog;
+    }
 
     LinkProgram(VertexShader, FragmentShader);
+
+    glDeleteShader(VertexShader);
+    glDeleteShader(FragmentShader);
     glUseProgram(Program);
 }
 
@@ -92,6 +115,15 @@ void Renderer::LinkProgram(unsigned int VertexShader, unsigned int FragmentShade
     glAttachShader(Program, FragmentShader);
     glLinkProgram(Program);
 
+    int success;
+    glGetProgramiv(Program, GL_LINK_STATUS, &success);
+
+    if(!success)
+    {
+        char infoLog[512];
+        glGetProgramInfoLog(Program, 512, NULL, infoLog);
+        qInfo() << infoLog;
+    }
     glDeleteShader(VertexShader);
     glDeleteShader(FragmentShader);
 }

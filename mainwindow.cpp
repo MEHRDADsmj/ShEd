@@ -22,7 +22,8 @@ void MainWindow::GetEditors(QTextEdit *&Vertex, QTextEdit *&Fragment)
 
 void MainWindow::on_btnCompile_clicked()
 {
-    ui->widgetRenderer->CompileShaders();
+    ui->widgetRenderer->initializeGL();
+    ui->widgetRenderer->paintGL();
 }
 
 
