@@ -14,6 +14,12 @@ public:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
+    void CompileShaders();
+    void LinkProgram(unsigned int VertexShader, unsigned int FragmentShader);
+
+private:
+    unsigned int Program;
+
 signals:
 
 };
