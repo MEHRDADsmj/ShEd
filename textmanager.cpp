@@ -1,5 +1,6 @@
 #include "textmanager.h"
 #include <QTextEdit>
+#include <QFile>
 
 TextManager* TextManager::Manager = nullptr;
 
@@ -23,6 +24,22 @@ void TextManager::GetTextFromEditors(std::string& VertexSrc, std::string& FragSr
     Src = FragmentEdit->toPlainText();
     String = Src.toStdString();
     FragSrc = String;
+}
+
+void TextManager::ExportFiles()
+{
+    std::string VertexSrc, FragSrc;
+    GetTextFromEditors(VertexSrc, FragSrc);
+
+    QFile VertexFile("Vertex.glsl");
+    VertexFile.open(QIODeviceBase::WriteOnly);
+    VertexFile.write(VertexSrc.c_str());
+    VertexFile.close();
+
+    QFile FragFile("Fragment.glsl");
+    FragFile.open(QIODeviceBase::WriteOnly);
+    FragFile.write(FragSrc.c_str());
+    FragFile.close();
 }
 
 TextManager *TextManager::GetTextManager()

@@ -30,3 +30,13 @@ void MainWindow::on_btnCompile_clicked()
     }
 }
 
+
+void MainWindow::on_btnExport_clicked()
+{
+    TextManager* tm = TextManager::GetTextManager();
+    if(tm)
+    {
+        tm->ExportFiles();
+    }
+}
+

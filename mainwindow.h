@@ -22,6 +22,8 @@ public:
 private slots:
     void on_btnCompile_clicked();
 
+    void on_btnExport_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

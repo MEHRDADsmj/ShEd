@@ -14,6 +14,8 @@ private:
 public:
     virtual ~TextManager();
     void GetTextFromEditors(std::string& VertexSrc, std::string& FragSrc);
+    void ExportFiles();
+
 
     QTextEdit* VertexEdit;
     QTextEdit* FragmentEdit;
