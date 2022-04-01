@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->widgetRenderer, &Renderer::AddError, this, &MainWindow::AddError);
     connect(ui->widgetRenderer, &Renderer::ClearErrorList, this, &MainWindow::ClearErrorList);
+    connect(ui->actionExport, &QAction::triggered, this, &MainWindow::Export);
 }
 
 MainWindow::~MainWindow()
@@ -33,7 +34,7 @@ void MainWindow::ClearErrorList()
     ui->listErrorList->clear();
 }
 
-void MainWindow::on_btnExport_clicked()
+void MainWindow::Export()
 {
     TextManager* tm = TextManager::GetTextManager();
     if(tm)

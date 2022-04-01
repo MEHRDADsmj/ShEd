@@ -25,7 +25,7 @@ public slots:
     void ClearErrorList();
 
 private slots:
-    void on_btnExport_clicked();
+    void Export();
 
     void on_txtVertex_textChanged();
 
