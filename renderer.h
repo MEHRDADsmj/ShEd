@@ -14,12 +14,15 @@ public:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
-    void CompileShaders();
-    void LinkProgram(unsigned int VertexShader, unsigned int FragmentShader);
-
     void MarkShaderDirty();
 
 private:
+    void CompileShaders();
+    void LinkProgram(unsigned int VertexShader, unsigned int FragmentShader);
+
+    void CheckCompileStatus(unsigned int Shader, GLenum Type);
+    void CheckLinkStatus(unsigned int ShaderProgram);
+
     unsigned int Program;
     bool bIsShaderDirty;
 

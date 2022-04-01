@@ -39,10 +39,10 @@ void Renderer::initializeGL()
         0, 1, 3
     };
 
-    // Index buffer object
-    unsigned int IBO;
-    glGenBuffers(1, &IBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+    // Element buffer object
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 }
 
@@ -83,27 +83,13 @@ void Renderer::CompileShaders()
     glShaderSource(VertexShader, 1, &Src, nullptr);
     glCompileShader(VertexShader);
 
-    int success;
-    glGetShaderiv(VertexShader, GL_COMPILE_STATUS, &success);
-
-    if(!success)
-    {
-        char infoLog[512];
-        glGetShaderInfoLog(Program, 512, NULL, infoLog);
-        qInfo() << infoLog;
-    }
+    CheckCompileStatus(VertexShader, GL_VERTEX_SHADER);
 
     Src = FragSrc.c_str();
     glShaderSource(FragmentShader, 1, &Src, nullptr);
     glCompileShader(FragmentShader);
-    glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, &success);
 
-    if(!success)
-    {
-        char infoLog[512];
-        glGetShaderInfoLog(Program, 512, NULL, infoLog);
-        qInfo() << infoLog;
-    }
+    CheckCompileStatus(FragmentShader, GL_FRAGMENT_SHADER);
 
     LinkProgram(VertexShader, FragmentShader);
 
@@ -116,25 +102,52 @@ void Renderer::CompileShaders()
 void Renderer::LinkProgram(unsigned int VertexShader, unsigned int FragmentShader)
 {
     initializeOpenGLFunctions();
+
     unsigned int TempProgram;
     TempProgram = glCreateProgram();
+
     glAttachShader(TempProgram, VertexShader);
     glAttachShader(TempProgram, FragmentShader);
     glLinkProgram(TempProgram);
 
+    CheckLinkStatus(TempProgram);
+
+    glDeleteProgram(Program);
+    Program = TempProgram;
+    glUseProgram(Program);
+}
+
+void Renderer::CheckCompileStatus(unsigned int Shader, GLenum Type)
+{
     int success;
-    glGetProgramiv(TempProgram, GL_LINK_STATUS, &success);
+    glGetShaderiv(Shader, GL_COMPILE_STATUS, &success);
 
     if(!success)
     {
         char infoLog[512];
-        glGetProgramInfoLog(TempProgram, 512, NULL, infoLog);
-        qInfo() << infoLog;
+        glGetShaderInfoLog(Shader, 512, nullptr, infoLog);
+        if(Type == GL_VERTEX_SHADER)
+        {
+            qInfo() << "Vertex:" << infoLog;
+        }
+        else if(Type == GL_FRAGMENT_SHADER)
+        {
+            qInfo() << "Fragment:" << infoLog;
+        }
     }
+}
 
-    glDeleteProgram(Program);
-    Program = TempProgram;
-    glUseProgram(TempProgram);
+void Renderer::CheckLinkStatus(unsigned int ShaderProgram)
+{
+    int success;
+    glGetProgramiv(ShaderProgram, GL_LINK_STATUS, &success);
+
+    if(!success)
+    {
+        char infoLog[512];
+        glGetProgramInfoLog(ShaderProgram, 512, nullptr, infoLog);
+        qInfo() << "Program:" << infoLog;
+    }
 }
 
 void Renderer::MarkShaderDirty()
