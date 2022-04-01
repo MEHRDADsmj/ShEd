@@ -1,11 +1,10 @@
 #include "renderer.h"
 #include "textmanager.h"
-#include <QDebug>
 
 Renderer::Renderer(QWidget *parent)
     : QOpenGLWidget{parent}, bIsShaderDirty{true}
 {
-
+    StartTime = QTime::currentTime();
 }
 
 void Renderer::initializeGL()
@@ -55,6 +54,7 @@ void Renderer::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     CompileShaders();
+    SetUniforms();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     update();
 }
@@ -94,9 +94,6 @@ void Renderer::CompileShaders()
 
     LinkProgram(VertexShader, FragmentShader);
 
-    glDeleteShader(VertexShader);
-    glDeleteShader(FragmentShader);
-
     bIsShaderDirty = false;
 }
 
@@ -116,6 +113,9 @@ void Renderer::LinkProgram(unsigned int VertexShader, unsigned int FragmentShade
     glDeleteProgram(Program);
     Program = TempProgram;
     glUseProgram(Program);
+
+    glDeleteShader(VertexShader);
+    glDeleteShader(FragmentShader);
 }
 
 void Renderer::CheckCompileStatus(unsigned int Shader, GLenum Type)
@@ -154,6 +154,19 @@ void Renderer::CheckLinkStatus(unsigned int ShaderProgram)
         ErrorText.append(infoLog);
         emit AddError(ErrorText);
     }
+}
+
+void Renderer::SetUniforms()
+{
+    initializeOpenGLFunctions();
+
+    unsigned int ResolutionLocation = glGetUniformLocation(Program, "resolution");
+    float Screen[2] = { (float)this->width(), (float)this->height() };
+    glUniform2fv(ResolutionLocation, 1, Screen);
+
+    unsigned int TimeLocation = glGetUniformLocation(Program, "time");
+    CurrentTime = QTime::currentTime();
+    glUniform1f(TimeLocation, CurrentTime.msecsTo(StartTime) / 1000.0f);
 }
 
 void Renderer::MarkShaderDirty()

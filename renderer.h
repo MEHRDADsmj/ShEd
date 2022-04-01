@@ -3,6 +3,7 @@
 
 #include <QtOpenGLWidgets/QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
+#include <QTime>
 
 class Renderer : public QOpenGLWidget, public QOpenGLFunctions_3_3_Core
 {
@@ -23,8 +24,13 @@ private:
     void CheckCompileStatus(unsigned int Shader, GLenum Type);
     void CheckLinkStatus(unsigned int ShaderProgram);
 
+    void SetUniforms();
+
     unsigned int Program;
     bool bIsShaderDirty;
+
+    QTime StartTime;
+    QTime CurrentTime;
 
 signals:
     void AddError(std::string Error);
