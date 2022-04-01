@@ -22,12 +22,7 @@ void MainWindow::GetEditors(QTextEdit *&Vertex, QTextEdit *&Fragment)
 
 void MainWindow::on_btnCompile_clicked()
 {
-    std::string one, two;
-    TextManager* tm = TextManager::GetTextManager();
-    if(tm)
-    {
-        tm->GetTextFromEditors(one, two);
-    }
+    ui->widgetRenderer->CompileShaders();
 }
 
 

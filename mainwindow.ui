@@ -57,7 +57,7 @@
          </layout>
         </widget>
        </widget>
-       <widget class="Renderer" name="widget" native="true"/>
+       <widget class="Renderer" name="widgetRenderer" native="true"/>
       </widget>
       <widget class="QWidget" name="layoutWidget">
        <layout class="QHBoxLayout" name="horizontalLayout">
