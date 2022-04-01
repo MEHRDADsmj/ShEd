@@ -27,6 +27,8 @@ private:
     bool bIsShaderDirty;
 
 signals:
+    void AddError(std::string Error);
+    void ClearErrorList();
 
 };
 

@@ -65,6 +65,7 @@ void Renderer::CompileShaders()
     {
         return;
     }
+    emit ClearErrorList();
 
     initializeOpenGLFunctions();
     TextManager* tm = TextManager::GetTextManager();
@@ -126,14 +127,17 @@ void Renderer::CheckCompileStatus(unsigned int Shader, GLenum Type)
     {
         char infoLog[512];
         glGetShaderInfoLog(Shader, 512, nullptr, infoLog);
+        std::string ErrorText;
         if(Type == GL_VERTEX_SHADER)
         {
-            qInfo() << "Vertex:" << infoLog;
+            ErrorText = "Vertex: ";
         }
         else if(Type == GL_FRAGMENT_SHADER)
         {
-            qInfo() << "Fragment:" << infoLog;
+            ErrorText = "Fragment: ";
         }
+        ErrorText.append(infoLog);
+        emit AddError(ErrorText);
     }
 }
 
@@ -146,7 +150,9 @@ void Renderer::CheckLinkStatus(unsigned int ShaderProgram)
     {
         char infoLog[512];
         glGetProgramInfoLog(ShaderProgram, 512, nullptr, infoLog);
-        qInfo() << "Program:" << infoLog;
+        std::string ErrorText = "Program: ";
+        ErrorText.append(infoLog);
+        emit AddError(ErrorText);
     }
 }
 

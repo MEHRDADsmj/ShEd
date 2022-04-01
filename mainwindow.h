@@ -8,6 +8,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class QTextEdit;
+class QListWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -17,7 +18,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void GetEditors(QTextEdit*& Vertex, QTextEdit*& Fragment);
+    void GetEditors(QTextEdit*& Vertex, QTextEdit*& Fragment) const;
+
+public slots:
+    void AddError(std::string Error);
+    void ClearErrorList();
 
 private slots:
     void on_btnExport_clicked();
