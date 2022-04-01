@@ -17,8 +17,11 @@ public:
     void CompileShaders();
     void LinkProgram(unsigned int VertexShader, unsigned int FragmentShader);
 
+    void MarkShaderDirty();
+
 private:
     unsigned int Program;
+    bool bIsShaderDirty;
 
 signals:
 

@@ -20,13 +20,6 @@ void MainWindow::GetEditors(QTextEdit *&Vertex, QTextEdit *&Fragment)
     Fragment = ui->txtFragment;
 }
 
-void MainWindow::on_btnCompile_clicked()
-{
-    ui->widgetRenderer->initializeGL();
-    ui->widgetRenderer->paintGL();
-}
-
-
 void MainWindow::on_btnExport_clicked()
 {
     TextManager* tm = TextManager::GetTextManager();
@@ -34,5 +27,17 @@ void MainWindow::on_btnExport_clicked()
     {
         tm->ExportFiles();
     }
+}
+
+
+void MainWindow::on_txtVertex_textChanged()
+{
+    ui->widgetRenderer->MarkShaderDirty();
+}
+
+
+void MainWindow::on_txtFragment_textChanged()
+{
+    ui->widgetRenderer->MarkShaderDirty();
 }
 

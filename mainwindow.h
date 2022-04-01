@@ -20,9 +20,11 @@ public:
     void GetEditors(QTextEdit*& Vertex, QTextEdit*& Fragment);
 
 private slots:
-    void on_btnCompile_clicked();
-
     void on_btnExport_clicked();
+
+    void on_txtVertex_textChanged();
+
+    void on_txtFragment_textChanged();
 
 private:
     Ui::MainWindow *ui;
