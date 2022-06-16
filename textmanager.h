@@ -3,21 +3,21 @@
 
 #include <QObject>
 
-class QTextEdit;
+class QPlainTextEdit;
 
 class TextManager : public QObject
 {
     Q_OBJECT
 private:
-    explicit TextManager(QObject *parent = nullptr, QTextEdit* VertexEdit = nullptr,
-                         QTextEdit* FragmentEdit = nullptr);
+    explicit TextManager(QObject *parent = nullptr, QPlainTextEdit* VertexEdit = nullptr,
+                         QPlainTextEdit* FragmentEdit = nullptr);
 public:
     virtual ~TextManager();
     void GetTextFromEditors(std::string& VertexSrc, std::string& FragSrc);
     void ExportFiles();
 
-    QTextEdit* VertexEdit;
-    QTextEdit* FragmentEdit;
+    QPlainTextEdit* VertexEdit;
+    QPlainTextEdit* FragmentEdit;
 
     static TextManager* GetTextManager();
 

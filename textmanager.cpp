@@ -1,10 +1,10 @@
 #include "textmanager.h"
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QFile>
 
 TextManager* TextManager::Manager = nullptr;
 
-TextManager::TextManager(QObject *parent, QTextEdit* Vertex, QTextEdit* Fragment)
+TextManager::TextManager(QObject *parent, QPlainTextEdit* Vertex, QPlainTextEdit* Fragment)
     : QObject{parent}, VertexEdit{Vertex}, FragmentEdit{Fragment}
 {
     Manager = this;

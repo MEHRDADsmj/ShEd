@@ -18,7 +18,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::GetEditors(QTextEdit *&Vertex, QTextEdit *&Fragment) const
+void MainWindow::GetEditors(QPlainTextEdit *&Vertex, QPlainTextEdit *&Fragment) const
 {
     Vertex = ui->txtVertex;
     Fragment = ui->txtFragment;

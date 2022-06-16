@@ -25,6 +25,8 @@ set(PROJECT_SOURCES
         renderer.cpp
         TextManager.h
         TextManager.cpp
+        texteditor.h
+        texteditor.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
