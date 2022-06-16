@@ -169,10 +169,19 @@ void main()
    <property name="text">
     <string>Export</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
+   </property>
   </action>
   <action name="actionImport">
    <property name="text">
     <string>Import</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
  </widget>
