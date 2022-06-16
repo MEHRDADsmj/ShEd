@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->widgetRenderer, &Renderer::AddError, this, &MainWindow::AddError);
     connect(ui->widgetRenderer, &Renderer::ClearErrorList, this, &MainWindow::ClearErrorList);
     connect(ui->actionExport, &QAction::triggered, this, &MainWindow::Export);
+    connect(ui->actionImport, &QAction::triggered, this, &MainWindow::Import);
 }
 
 MainWindow::~MainWindow()
@@ -40,6 +41,15 @@ void MainWindow::Export()
     if(tm)
     {
         tm->ExportFiles();
+    }
+}
+
+void MainWindow::Import()
+{
+    TextManager* tm = TextManager::GetTextManager();
+    if(tm)
+    {
+        tm->ImportFiles();
     }
 }
 

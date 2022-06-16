@@ -62,9 +62,7 @@ color: rgb(255, 255, 255);</string>
          <item>
           <widget class="CodeEditor" name="txtVertex">
            <property name="font">
-            <font>
-             <family>Courier</family>
-            </font>
+            <font/>
            </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 200, 0);</string>
@@ -102,7 +100,6 @@ void main()
           <widget class="CodeEditor" name="txtFragment">
            <property name="font">
             <font>
-             <family>Courier</family>
              <pointsize>9</pointsize>
             </font>
            </property>
@@ -163,6 +160,7 @@ void main()
      <string>File</string>
     </property>
     <addaction name="actionExport"/>
+    <addaction name="actionImport"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -170,6 +168,11 @@ void main()
   <action name="actionExport">
    <property name="text">
     <string>Export</string>
+   </property>
+  </action>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import</string>
    </property>
   </action>
  </widget>

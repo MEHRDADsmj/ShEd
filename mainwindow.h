@@ -26,6 +26,7 @@ public slots:
 
 private slots:
     void Export();
+    void Import();
 
     void on_txtVertex_textChanged();
 
