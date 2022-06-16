@@ -101,17 +101,15 @@ void Renderer::LinkProgram(unsigned int VertexShader, unsigned int FragmentShade
 {
     initializeOpenGLFunctions();
 
-    unsigned int TempProgram;
-    TempProgram = glCreateProgram();
-
-    glAttachShader(TempProgram, VertexShader);
-    glAttachShader(TempProgram, FragmentShader);
-    glLinkProgram(TempProgram);
-
-    CheckLinkStatus(TempProgram);
-
     glDeleteProgram(Program);
-    Program = TempProgram;
+    Program = glCreateProgram();
+
+    glAttachShader(Program, VertexShader);
+    glAttachShader(Program, FragmentShader);
+    glLinkProgram(Program);
+
+    CheckLinkStatus(Program);
+
     glUseProgram(Program);
 
     glDeleteShader(VertexShader);

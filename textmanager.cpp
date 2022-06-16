@@ -13,6 +13,7 @@ TextManager::TextManager(QObject *parent, QPlainTextEdit* Vertex, QPlainTextEdit
 TextManager::~TextManager()
 {
     delete Manager;
+    Manager = nullptr;
 }
 
 void TextManager::GetTextFromEditors(std::string& VertexSrc, std::string& FragSrc)
@@ -44,6 +45,10 @@ void TextManager::ExportFiles()
 
 TextManager *TextManager::GetTextManager()
 {
-    static TextManager* tm = new TextManager();
-    return tm;
+    if (Manager == nullptr)
+    {
+        Manager = new TextManager();
+    }
+
+    return Manager;
 }
