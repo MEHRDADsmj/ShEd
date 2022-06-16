@@ -50,8 +50,18 @@ void TextManager::ImportFiles()
 {
     QString VertexFilePath = QFileDialog::getOpenFileName(nullptr, "Import vertex shader", QDir::homePath(),
                                                           "Shader file (*.glsl) ;; Text file (*.txt) ;; Fragment file (*.VShader)");
+    if(VertexFilePath == "")
+    {
+        return;
+    }
+
     QString FragmentFilePath = QFileDialog::getOpenFileName(nullptr, "Import fragment shader", QDir::homePath(),
                                                           "Shader file (*.glsl) ;; Text file (*.txt) ;; Fragment file (*.FShader)");
+    if(FragmentFilePath == "")
+    {
+        return;
+    }
+
     QFile VertexFile(VertexFilePath);
     VertexFile.open(QIODeviceBase::ReadOnly);
     VertexEdit->setPlainText(VertexFile.readAll());
