@@ -27,6 +27,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(50, 50, 50);
+selection-background-color: rgb(118, 118, 118);
 alternate-background-color: rgb(255, 255, 255);
 color: rgb(255, 255, 255);</string>
   </property>
@@ -139,6 +140,11 @@ void main()
        <widget class="QListWidget" name="listErrorList">
         <property name="styleSheet">
          <string notr="true">color: rgb(255, 200, 0);</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblFPS">
+        <property name="text">
+         <string>FPS: </string>
         </property>
        </widget>
       </widget>

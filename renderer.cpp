@@ -1,8 +1,9 @@
 #include "renderer.h"
 #include "textmanager.h"
+#include <QLabel>
 
 Renderer::Renderer(QWidget *parent)
-    : QOpenGLWidget{parent}, bIsShaderDirty{true}
+    : QOpenGLWidget{parent}, bIsShaderDirty{true}, FPSLabel{nullptr}
 {
     StartTime = QTime::currentTime();
 }
@@ -52,6 +53,9 @@ void Renderer::resizeGL(int w, int h)
 
 void Renderer::paintGL()
 {
+    static QTime StartUpdateTime = QTime::currentTime();
+    FPSLabel->setText("FPS: " + QString().setNum(1000.0f / StartUpdateTime.msecsTo(QTime::currentTime()), 'g', 2));
+    StartUpdateTime = QTime::currentTime();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     CompileShaders();
     SetUniforms();
@@ -170,4 +174,9 @@ void Renderer::SetUniforms()
 void Renderer::MarkShaderDirty()
 {
     bIsShaderDirty = true;
+}
+
+void Renderer::SetFPSLabel(QLabel *NewLabel)
+{
+    FPSLabel = NewLabel;
 }

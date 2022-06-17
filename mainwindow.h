@@ -9,6 +9,7 @@ QT_END_NAMESPACE
 
 class QPlainTextEdit;
 class QListWidget;
+class QLabel;
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +20,7 @@ public:
     ~MainWindow();
 
     void GetEditors(QPlainTextEdit*& Vertex, QPlainTextEdit*& Fragment) const;
+    void GetFPS(QLabel*& FPSLabel);
 
 public slots:
     void AddError(std::string Error);

@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "textmanager.h"
 #include "renderer.h"
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->widgetRenderer, &Renderer::ClearErrorList, this, &MainWindow::ClearErrorList);
     connect(ui->actionExport, &QAction::triggered, this, &MainWindow::Export);
     connect(ui->actionImport, &QAction::triggered, this, &MainWindow::Import);
+    ui->widgetRenderer->SetFPSLabel(ui->lblFPS);
 }
 
 MainWindow::~MainWindow()
@@ -23,6 +25,11 @@ void MainWindow::GetEditors(QPlainTextEdit *&Vertex, QPlainTextEdit *&Fragment) 
 {
     Vertex = ui->txtVertex;
     Fragment = ui->txtFragment;
+}
+
+void MainWindow::GetFPS(QLabel *&FPSLabel)
+{
+    FPSLabel = ui->lblFPS;
 }
 
 void MainWindow::AddError(std::string Error)
