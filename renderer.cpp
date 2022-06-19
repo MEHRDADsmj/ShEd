@@ -53,7 +53,7 @@ void Renderer::resizeGL(int w, int h)
 
 void Renderer::paintGL()
 {
-    static QTime StartUpdateTime = QTime::currentTime();
+    static QTime StartUpdateTime;
     FPSLabel->setText("FPS: " + QString().setNum(1000.0f / StartUpdateTime.msecsTo(QTime::currentTime()), 'g', 2));
     StartUpdateTime = QTime::currentTime();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
